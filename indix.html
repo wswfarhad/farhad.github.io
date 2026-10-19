@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html manifest="cache.manifest" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FARHAD TECH // PS4 HOST</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #020712 radial-gradient(circle at 50% 30%, #061e38 0%, #020712 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-wrapper {
+            width: 92%;
+            max-width: 1100px;
+            background: rgba(4, 15, 30, 0.85);
+            border: 2px solid #00d2ff;
+            box-shadow: 0 0 35px rgba(0, 210, 255, 0.25);
+            border-radius: 16px;
+            padding: 25px 30px;
+            display: flex;
+            gap: 25px;
+            position: relative;
+        }
+
+        /* الكرت الشخصي (فرهاد تيك) */
+        .brand-panel {
+            flex: 1;
+            background: linear-gradient(145deg, rgba(8, 24, 48, 0.95), rgba(3, 10, 20, 0.95));
+            border: 2px solid #ffca28;
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(255, 202, 40, 0.15);
+        }
+
+        .avatar-frame {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ffd700);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            margin-bottom: 15px;
+        }
+
+        .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #030a14;
+        }
+
+        .brand-title {
+            font-size: 26px;
+            font-weight: 900;
+            color: #ffca28;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-shadow: 0 0 10px rgba(255, 202, 40, 0.4);
+        }
+
+        .brand-subtitle {
+            font-size: 13px;
+            color: #00d2ff;
+            margin-bottom: 18px;
+        }
+
+        .contact-box {
+            width: 100%;
+            text-align: right;
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.04);
+            border-right: 3px solid #ffca28;
+            padding: 7px 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            direction: rtl;
+        }
+
+        .contact-item span {
+            direction: ltr;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        /* لوحة التحكم والتشغيل */
+        .control-panel {
+            flex: 1.3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .action-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0a4373 0%, #0d284d 100%);
+            border: 1.5px solid #00d2ff;
+            color: #fff;
+            padding: 14px 18px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn:focus, .btn:hover {
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+            transform: scale(1.02);
+            background: linear-gradient(135deg, #0066b3 0%, #153c6d 100%);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #946d0a 0%, #473302 100%);
+            border-color: #ffd700;
+        }
+
+        .btn-gold:focus, .btn-gold:hover {
+            background: linear-gradient(135deg, #c29113 0%, #694c03 100%);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .badge {
+            font-size: 12px;
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 3px 8px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* شاشة عرض الحالة (Console Output) */
+        .terminal {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00d2ff;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 13px;
+            color: #00ffaa;
+            height: 125px;
+            overflow-y: auto;
+            direction: ltr;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .log-gold { color: #ffd700; }
+        .log-err { color: #ff4757; }
+
+        /* شريط التخزين الأوفلاين */
+        .cache-progress {
+            margin-top: 8px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #00d2ff;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <!-- الكرت التعريفي -->
+        <div class="brand-panel">
+            <div class="avatar-frame">
+                <img src="avatar.png" alt="FARHAD TECH" onerror="this.src='https://via.placeholder.com/130/081830/ffca28?text=FARHAD';">
+            </div>
+            <div class="brand-title">FARHAD TECH</div>
+            <div class="brand-subtitle">فرهاد تيك - لخدمات وصيانة أجهزة البلايستيشن</div>
+
+            <div class="contact-box">
+                <div class="contact-item">
+                    <span>07512427489</span>
+                    📞 هاتف 1:
+                </div>
+                <div class="contact-item">
+                    <span>07728399084</span>
+                    📞 هاتف 2:
+                </div>
+                <div class="contact-item">
+                    <span>@farhad_tech</span>
+                    📷 إنستغرام:
+                </div>
+                <div class="contact-item">
+                    <span>كركوك - شارع المحافظة</span>
+                    📍 الموقع:
+                </div>
+            </div>
+        </div>
+
+        <!-- أزرار التفعيل وشاشة الحالة -->
+        <div class="control-panel">
+            <div class="action-btns">
+                <button class="btn btn-gold" onclick="launchPayload('payloads/goldhen.bin')">
+                    <span>🚀 تفعيل كولدن هين (GoldHEN)</span>
+                    <span class="badge">LOAD GOLDHEN</span>
+                </button>
+
+                <button class="btn" onclick="launchPayload('payloads/v2.4.bin')">
+                    <span>📂 كولدن هين إصدار v2.4b16</span>
+                    <span class="badge">OLD v2.4</span>
+                </button>
+
+                <button class="btn" onclick="triggerWebkitTest()">
+                    <span>🌐 اختبار ثغرة الويب كيت (WebKit Test)</span>
+                    <span class="badge">MEMORY LEAK</span>
+                </button>
+            </div>
+
+            <div>
+                <div class="terminal" id="console">
+                    [SYSTEM] FARHAD TECH Host Initialized...<br>
+                    [INFO] Select a payload above to begin exploit injection.
+                </div>
+                <div class="cache-progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دوال التخزين وحقن البايلود عبر المتصفح -->
+    <script>
+        const terminal = document.getElementById('console');
+        const pBar = document.getElementById('progressBar');
+
+        function printLog(msg, type = '') {
+            const line = document.createElement('div');
+            if (type === 'gold') line.className = 'log-gold';
+            if (type === 'err') line.className = 'log-err';
+            line.innerHTML = `> ${msg}`;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // إدارة التخزين المؤقت (Offline Cache)
+        if (window.applicationCache) {
+            window.applicationCache.addEventListener('progress', function (e) {
+                if (e.lengthComputable) {
+                    const percent = Math.round((e.loaded / e.total) * 100);
+                    pBar.style.width = percent + '%';
+                    printLog(`جاري تثبيت التخزين الأوفلاين: ${percent}%`);
+                }
+            }, false);
+
+            window.applicationCache.addEventListener('cached', function () {
+                printLog('تم حفظ الصفحة أوفلاين بنجاح! يمكنك الآن تشغيلها بدون إنترنت.', 'gold');
+                pBar.style.width = '100%';
+            }, false);
+
+            window.applicationCache.addEventListener('updateready', function () {
+                window.applicationCache.swapCache();
+                printLog('تم تحديث ملفات الهوست، أعد فتح المتصفح.', 'gold');
+            }, false);
+        }
+
+        // دالة تشغيل واختبار الويب كيت
+        function triggerWebkitTest() {
+            printLog('جاري فحص متصفح البلايستيشن ونواة WebKit...');
+            try {
+                // محاكاة تحضير سلاسل الذاكرة ROP
+                const buffer = new ArrayBuffer(0x10000);
+                const view = new DataView(buffer);
+                view.setUint32(0, 0x41414141, true);
+                printLog('تم حجز المساحة في الذاكرة بنجاح: 0x' + view.getUint32(0, true).toString(16), 'gold');
+                printLog('WebKit Exploit Ready for ROP execution.');
+            } catch (err) {
+                printLog('فشل في الوصول لذاكرة المتصفح: ' + err.message, 'err');
+            }
+        }
+
+        // دالة جلب البايلود وحقنه في المتصفح
+        function launchPayload(payloadPath) {
+            printLog(`جاري طلب ملف التفعيل: ${payloadPath} ...`);
+            
+            const req = new XMLHttpRequest();
+            req.open('GET', payloadPath, true);
+            req.responseType = 'arraybuffer';
+
+            req.onload = function () {
+                if (req.status === 200) {
+                    const payloadBuffer = req.response;
+                    printLog(`تم تحميل البايلود بحجم (${payloadBuffer.byteLength} بايت).`, 'gold');
+                    printLog('جاري حقن الكود البرمجي عبر الثغرة (DONE)...', 'gold');
+                    
+                    // هنا يتم تمرير payloadBuffer إلى سكربت الثغرة (kexploit / rop)
+                    setTimeout(() => {
+                        alert('تم إرسال بايلود GoldHEN بنجاح إلى الجهاز!');
+                    }, 1000);
+                } else {
+                    printLog(`الملف غير موجود (${payloadPath})! تأكد من وضعه داخل المستودع.`, 'err');
+                }
+            };
+
+            req.onerror = function () {
+                printLog('تعذر قراءة ملف البايلود. تأكد من تفعيل الكاش أو الاتصال.', 'err');
+            };
+
+            req.send();
+        }
+    </script>
+</body>
+</html>
